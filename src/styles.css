@@ -1,0 +1,333 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * Fun Media Entertainment — cinematic dark design system.
+ * All colors in oklch. Tokens define surfaces, neon accents, gradients, shadows.
+ */
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --color-neon-cyan: var(--neon-cyan);
+  --color-neon-blue: var(--neon-blue);
+  --color-neon-purple: var(--neon-purple);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-glass: var(--glass);
+
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Space Grotesk", "Inter", sans-serif;
+}
+
+:root {
+  color-scheme: dark;
+  --radius: 0.75rem;
+
+  /* Base cinematic dark palette */
+  --background: oklch(0.11 0.015 265);
+  --foreground: oklch(0.97 0.005 250);
+
+  --surface: oklch(0.15 0.02 265);
+  --surface-2: oklch(0.19 0.025 265);
+  --glass: oklch(0.22 0.03 265 / 0.5);
+
+  --card: oklch(0.15 0.02 265);
+  --card-foreground: oklch(0.97 0.005 250);
+  --popover: oklch(0.15 0.02 265);
+  --popover-foreground: oklch(0.97 0.005 250);
+
+  --primary: oklch(0.72 0.18 240);
+  --primary-foreground: oklch(0.11 0.02 265);
+
+  --secondary: oklch(0.22 0.03 265);
+  --secondary-foreground: oklch(0.97 0.005 250);
+
+  --muted: oklch(0.2 0.02 265);
+  --muted-foreground: oklch(0.7 0.02 250);
+
+  --accent: oklch(0.7 0.2 300);
+  --accent-foreground: oklch(0.11 0.02 265);
+
+  --destructive: oklch(0.65 0.24 25);
+  --destructive-foreground: oklch(0.98 0 0);
+
+  --border: oklch(1 0 0 / 0.08);
+  --input: oklch(1 0 0 / 0.12);
+  --ring: oklch(0.72 0.18 240);
+
+  --neon-blue: oklch(0.72 0.18 240);
+  --neon-cyan: oklch(0.85 0.16 200);
+  --neon-purple: oklch(0.7 0.24 300);
+
+  --gradient-hero: radial-gradient(ellipse at 20% 20%,
+      oklch(0.72 0.18 240 / 0.25),
+      transparent 60%),
+    radial-gradient(ellipse at 80% 60%, oklch(0.7 0.24 300 / 0.22), transparent 65%),
+    radial-gradient(ellipse at 50% 100%, oklch(0.85 0.16 200 / 0.15), transparent 70%);
+  --gradient-neon: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));
+  --gradient-glow: linear-gradient(135deg,
+      oklch(0.72 0.18 240 / 0.6),
+      oklch(0.7 0.24 300 / 0.6));
+
+  --shadow-glow: 0 0 40px oklch(0.72 0.18 240 / 0.35);
+  --shadow-panel: 0 20px 60px -20px oklch(0 0 0 / 0.6);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  html {
+    /* Matches WebGL water canvas clear color — prevents any bleed-through */
+    background-color: #010612;
+  }
+
+  body {
+    background-color: transparent;
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Body gradient removed — WebGL canvas handles the full background */
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
+    border-radius: 6px;
+  }
+}
+
+@utility glass {
+  background: oklch(0.18 0.025 265 / 0.55);
+  backdrop-filter: blur(20px) saturate(140%);
+  border: 1px solid oklch(1 0 0 / 0.08);
+}
+
+@utility gradient-text {
+  background: linear-gradient(90deg,
+      oklch(0.72 0.18 240),
+      oklch(0.85 0.16 200),
+      oklch(0.7 0.24 300),
+      oklch(0.72 0.18 240));
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-stroke: 0.5px oklch(0.9 0.05 250 / 0.35);
+  animation: gradient-shift 6s ease-in-out infinite;
+}
+
+@keyframes gradient-shift {
+
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+@utility hero-glow {
+  background: var(--gradient-hero);
+}
+
+@utility btn-neon {
+  background: var(--gradient-neon);
+  color: oklch(0.11 0.02 265);
+  box-shadow: var(--shadow-glow);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+@keyframes float-slow {
+
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-float {
+  animation: float-slow 6s ease-in-out infinite;
+}
+
+.animate-fade-up {
+  animation: fade-up 0.7s ease-out both;
+}
+
+
+/* ── Hero Premium Typography & Buttons ── */
+
+
+/* Badge pill */
+.hero-badge {
+  background: rgba(56, 207, 255, 0.08);
+  border: 1px solid rgba(56, 207, 255, 0.22);
+  backdrop-filter: blur(12px);
+}
+
+/* Main heading */
+.hero-heading {
+  font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
+  font-size: clamp(2.2rem, 4.2vw, 4rem);
+  color: #F8FAFF;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+  text-shadow: 0 2px 40px rgba(0, 0, 0, 0.65);
+}
+
+/* Plain lines of the heading */
+.hero-heading-line {
+  display: block;
+  color: #F8FAFF;
+  white-space: nowrap;
+}
+
+/* Gradient word "Worlds" — cyan → blue → violet */
+.hero-heading-gradient {
+  display: block;
+  background: linear-gradient(90deg, #35D8FF 0%, #5B8CFF 50%, #A855F7 100%);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: hero-word-shimmer 5s ease-in-out infinite;
+}
+
+@keyframes hero-word-shimmer {
+  0%, 100% { background-position: 0%   50%; }
+  50%       { background-position: 100% 50%; }
+}
+
+/* Primary CTA — cyan-to-violet gradient with glow */
+.hero-btn-primary {
+  background: linear-gradient(135deg, #35D8FF 0%, #5B8CFF 50%, #A855F7 100%);
+  background-size: 200% 100%;
+  box-shadow: 0 0 22px rgba(53, 216, 255, 0.40), 0 4px 18px rgba(0,0,0,0.30);
+  transition: background-position 0.4s ease, box-shadow 0.3s ease, transform 0.25s ease;
+}
+.hero-btn-primary:hover {
+  background-position: 100% 0;
+  box-shadow: 0 0 36px rgba(53, 216, 255, 0.60), 0 6px 28px rgba(0,0,0,0.38);
+  transform: translateY(-2px);
+}
+.hero-btn-primary:active {
+  transform: translateY(0);
+}
+
+/* Secondary CTA — glass border with soft cyan hover glow */
+.hero-btn-secondary {
+  background: rgba(10, 18, 40, 0.40);
+  border: 1px solid rgba(56, 207, 255, 0.28);
+  color: #DCE7F7;
+  backdrop-filter: blur(12px);
+  transition: background 0.3s ease, border-color 0.3s ease,
+              box-shadow 0.3s ease, transform 0.25s ease;
+}
+.hero-btn-secondary:hover {
+  background: rgba(56, 207, 255, 0.08);
+  border-color: rgba(56, 207, 255, 0.55);
+  box-shadow: 0 0 18px rgba(56, 207, 255, 0.22);
+  color: #F8FAFF;
+  transform: translateY(-2px);
+}
+.hero-btn-secondary:active {
+  transform: translateY(0);
+}
+
+
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* ── Hero text-area readability overlay ── */
+/* Subtle left-side dark gradient so text is always legible — no visible box */
+.hero-text-fade::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: radial-gradient(
+    ellipse 55% 80% at 20% 55%,
+    rgba(1, 6, 18, 0.52) 0%,
+    rgba(1, 6, 18, 0.18) 55%,
+    transparent 75%
+  );
+  pointer-events: none;
+}
