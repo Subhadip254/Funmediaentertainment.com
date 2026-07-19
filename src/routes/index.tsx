@@ -2,7 +2,8 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { lazy, Suspense } from "react";
 import { ArrowRight, Sparkles, Star } from "lucide-react";
 import * as Icons from "lucide-react";
-import { site, mailto, services, crew } from "@/config/site";
+import { site, mailto, services } from "@/config/site";
+import { crewMembers } from "@/data/crewData";
 
 const Hero3D = lazy(() => import("@/components/Hero3D"));
 
@@ -161,7 +162,7 @@ function CrewTeaser() {
         <Icons.Users className="h-8 w-8 text-primary" /> Crew of {site.name}
       </h2>
       <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-        {crew.map((c) => (
+        {crewMembers.slice(0, 4).map((c) => (
           <div key={c.name} className="glass rounded-2xl p-5 group transition-transform hover:-translate-y-1">
             <div className="aspect-square w-full overflow-hidden rounded-xl bg-gradient-to-br from-primary/30 to-accent/30 relative">
               {c.photo ? (
@@ -179,11 +180,19 @@ function CrewTeaser() {
                 </div>
               )}
             </div>
-            <h3 className="mt-4 font-semibold">{c.name}</h3>
-            <p className="text-sm text-muted-foreground">{c.role}</p>
+            <h3 className="mt-4 font-semibold text-white">{c.name}</h3>
+            <p className="text-xs text-primary mt-1">{c.role}</p>
             {c.intro && (
-              <p className="mt-1 text-xs text-muted-foreground/70 leading-relaxed">{c.intro}</p>
+              <p className="mt-2 text-xs text-muted-foreground leading-relaxed line-clamp-2">{c.intro}</p>
             )}
+            <div className="mt-4">
+              <Link
+                to={`/crew/${c.slug}`}
+                className="inline-flex items-center gap-1.5 rounded-lg btn-neon px-3 py-1.5 text-xs font-semibold transition-all duration-200 hover:scale-105 active:scale-100"
+              >
+                View Profile <ArrowRight className="h-3.5 w-3.5" />
+              </Link>
+            </div>
           </div>
         ))}
       </div>

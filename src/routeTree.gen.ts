@@ -22,7 +22,10 @@ import { Route as CareersRouteImport } from './routes/careers'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as CrewIndexRouteImport } from './routes/crew/index'
+import { Route as CrewSlugRouteImport } from './routes/crew/$slug'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
+import { Route as CrewSlugIndexRouteImport } from './routes/crew/$slug/index'
 
 const TermsRoute = TermsRouteImport.update({
   id: '/terms',
@@ -88,10 +91,25 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CrewIndexRoute = CrewIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => CrewRoute,
+} as any)
+const CrewSlugRoute = CrewSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => CrewRoute,
+} as any)
 const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
   id: '/dashboard',
   path: '/dashboard',
   getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const CrewSlugIndexRoute = CrewSlugIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => CrewSlugRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
@@ -99,7 +117,7 @@ export interface FileRoutesByFullPath {
   '/auth': typeof AuthRoute
   '/careers': typeof CareersRoute
   '/contact': typeof ContactRoute
-  '/crew': typeof CrewRoute
+  '/crew': typeof CrewRouteWithChildren
   '/portfolio': typeof PortfolioRoute
   '/privacy': typeof PrivacyRoute
   '/ratings': typeof RatingsRoute
@@ -108,13 +126,15 @@ export interface FileRoutesByFullPath {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms': typeof TermsRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
+  '/crew/$slug': typeof CrewSlugRouteWithChildren
+  '/crew/': typeof CrewIndexRoute
+  '/crew/$slug/': typeof CrewSlugIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/careers': typeof CareersRoute
   '/contact': typeof ContactRoute
-  '/crew': typeof CrewRoute
   '/portfolio': typeof PortfolioRoute
   '/privacy': typeof PrivacyRoute
   '/ratings': typeof RatingsRoute
@@ -123,6 +143,8 @@ export interface FileRoutesByTo {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms': typeof TermsRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
+  '/crew': typeof CrewIndexRoute
+  '/crew/$slug': typeof CrewSlugIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -131,7 +153,7 @@ export interface FileRoutesById {
   '/auth': typeof AuthRoute
   '/careers': typeof CareersRoute
   '/contact': typeof ContactRoute
-  '/crew': typeof CrewRoute
+  '/crew': typeof CrewRouteWithChildren
   '/portfolio': typeof PortfolioRoute
   '/privacy': typeof PrivacyRoute
   '/ratings': typeof RatingsRoute
@@ -140,6 +162,9 @@ export interface FileRoutesById {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms': typeof TermsRoute
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
+  '/crew/$slug': typeof CrewSlugRouteWithChildren
+  '/crew/': typeof CrewIndexRoute
+  '/crew/$slug/': typeof CrewSlugIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -157,13 +182,15 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/terms'
     | '/dashboard'
+    | '/crew/$slug'
+    | '/crew/'
+    | '/crew/$slug/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/auth'
     | '/careers'
     | '/contact'
-    | '/crew'
     | '/portfolio'
     | '/privacy'
     | '/ratings'
@@ -172,6 +199,8 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/terms'
     | '/dashboard'
+    | '/crew'
+    | '/crew/$slug'
   id:
     | '__root__'
     | '/'
@@ -188,6 +217,9 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/terms'
     | '/_authenticated/dashboard'
+    | '/crew/$slug'
+    | '/crew/'
+    | '/crew/$slug/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -196,7 +228,7 @@ export interface RootRouteChildren {
   AuthRoute: typeof AuthRoute
   CareersRoute: typeof CareersRoute
   ContactRoute: typeof ContactRoute
-  CrewRoute: typeof CrewRoute
+  CrewRoute: typeof CrewRouteWithChildren
   PortfolioRoute: typeof PortfolioRoute
   PrivacyRoute: typeof PrivacyRoute
   RatingsRoute: typeof RatingsRoute
@@ -299,12 +331,33 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/crew/': {
+      id: '/crew/'
+      path: '/'
+      fullPath: '/crew/'
+      preLoaderRoute: typeof CrewIndexRouteImport
+      parentRoute: typeof CrewRoute
+    }
+    '/crew/$slug': {
+      id: '/crew/$slug'
+      path: '/$slug'
+      fullPath: '/crew/$slug'
+      preLoaderRoute: typeof CrewSlugRouteImport
+      parentRoute: typeof CrewRoute
+    }
     '/_authenticated/dashboard': {
       id: '/_authenticated/dashboard'
       path: '/dashboard'
       fullPath: '/dashboard'
       preLoaderRoute: typeof AuthenticatedDashboardRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/crew/$slug/': {
+      id: '/crew/$slug/'
+      path: '/'
+      fullPath: '/crew/$slug/'
+      preLoaderRoute: typeof CrewSlugIndexRouteImport
+      parentRoute: typeof CrewSlugRoute
     }
   }
 }
@@ -320,13 +373,37 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
 const AuthenticatedRouteRouteWithChildren =
   AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
 
+interface CrewSlugRouteChildren {
+  CrewSlugIndexRoute: typeof CrewSlugIndexRoute
+}
+
+const CrewSlugRouteChildren: CrewSlugRouteChildren = {
+  CrewSlugIndexRoute: CrewSlugIndexRoute,
+}
+
+const CrewSlugRouteWithChildren = CrewSlugRoute._addFileChildren(
+  CrewSlugRouteChildren,
+)
+
+interface CrewRouteChildren {
+  CrewSlugRoute: typeof CrewSlugRouteWithChildren
+  CrewIndexRoute: typeof CrewIndexRoute
+}
+
+const CrewRouteChildren: CrewRouteChildren = {
+  CrewSlugRoute: CrewSlugRouteWithChildren,
+  CrewIndexRoute: CrewIndexRoute,
+}
+
+const CrewRouteWithChildren = CrewRoute._addFileChildren(CrewRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   AuthRoute: AuthRoute,
   CareersRoute: CareersRoute,
   ContactRoute: ContactRoute,
-  CrewRoute: CrewRoute,
+  CrewRoute: CrewRouteWithChildren,
   PortfolioRoute: PortfolioRoute,
   PrivacyRoute: PrivacyRoute,
   RatingsRoute: RatingsRoute,

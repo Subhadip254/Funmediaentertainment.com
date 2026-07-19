@@ -7,11 +7,11 @@ export const site = {
   tagline: "Creating Imaginative Worlds Through Animation",
   description:
     "Fun Media Entertainment is a creative production studio delivering professional 3D modeling, texturing, animation, rigging, lighting, and rendering services.",
-  email: "funmediaentertainment@hotmail.com",
+  email: "contact@funmediaentertainment.com",
   projectInquirySubject: "Project Inquiry – Fun Media Entertainment",
   socials: {
     instagram: "https://instagram.com/",
-    linkedin: "https://linkedin.com/",
+    linkedin: "https://www.linkedin.com/in/funmedia-entertainment-92b700388",
     youtube: "https://youtube.com/",
     behance: "https://behance.net/",
   },

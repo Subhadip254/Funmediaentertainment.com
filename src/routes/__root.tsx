@@ -13,6 +13,7 @@ import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
+import { AIChatbot } from "@/components/AIChatbot";
 import { ParticleBackground } from "@/components/ParticleBackground";
 import { site } from "@/config/site";
 import { supabase } from "@/integrations/supabase/client";
@@ -145,6 +146,7 @@ function RootComponent() {
         <Outlet />
       </main>
       <SiteFooter />
+      <AIChatbot />
       <Toaster theme="dark" position="top-center" richColors />
     </QueryClientProvider>
   );

@@ -164,8 +164,8 @@ function RatingsPage() {
                   >
                     <Star
                       className={`h-8 w-8 ${star <= (hoverRating || rating)
-                          ? "fill-primary text-primary"
-                          : "text-muted-foreground/30"
+                        ? "fill-primary text-primary"
+                        : "text-muted-foreground/30"
                         } transition-colors duration-200`}
                     />
                   </button>

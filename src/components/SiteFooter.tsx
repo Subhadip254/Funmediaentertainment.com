@@ -80,11 +80,14 @@ export function SiteFooter() {
           <h4 className="text-sm font-semibold">Get in touch</h4>
           <ul className="mt-4 space-y-2 text-sm text-muted-foreground">
             <li>
-              <a href={`mailto:${site.email}`} className="hover:text-foreground">
+              <a href={`mailto:${site.email}`} className="hover:text-foreground font-semibold text-foreground/90">
                 {site.email}
               </a>
             </li>
-            <li><a href={site.socials.instagram} target="_blank" rel="noopener noreferrer" className="hover:text-foreground">Instagram</a></li>
+            <li className="text-xs text-muted-foreground/80 leading-relaxed max-w-[200px]">
+              Purba Medinipur, West Bengal, 721659
+            </li>
+            <li className="pt-2"><a href={site.socials.instagram} target="_blank" rel="noopener noreferrer" className="hover:text-foreground">Instagram</a></li>
             <li><a href={site.socials.linkedin} target="_blank" rel="noopener noreferrer" className="hover:text-foreground">LinkedIn</a></li>
             <li><a href={site.socials.youtube} target="_blank" rel="noopener noreferrer" className="hover:text-foreground">YouTube</a></li>
             <li><a href={site.socials.behance} target="_blank" rel="noopener noreferrer" className="hover:text-foreground">Behance</a></li>
