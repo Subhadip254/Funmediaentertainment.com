@@ -90,9 +90,7 @@ export const crewMembers: CrewMemberFull[] = [
         description: 'Founded Fun Media Entertainment with a vision for high-quality creative animation production and storytelling.',
       },
     ],
-    socialLinks: {
-      linkedin: 'https://www.linkedin.com/in/subhadipbera6',
-    },
+    socialLinks: {},
     contactInfo: {
       email: 'Subhadip@funmediaentertainment.com',
     },
