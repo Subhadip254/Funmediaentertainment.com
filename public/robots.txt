@@ -1,2 +1,9 @@
 User-agent: *
 Allow: /
+
+User-agent: Googlebot
+Allow: /
+Allow: /logo.png
+Allow: /favicon.ico
+
+Sitemap: https://www.funmaidentertainment.com/sitemap.xml
