@@ -36,12 +36,6 @@ export const crew: CrewMember[] = [
     photo: "/images/crew/ceo.jpg",
   },
   {
-    name: "Lipika Gayen",
-    role: "HR Executive",
-    intro: "Building the Fun Media Entertainment crew and culture.",
-    photo: "/images/crew/hr.jpg",
-  },
-  {
     name: "Sagar Das",
     role: "Co-Founder and Technical Director",
     intro: "Directing production pipelines and technical craft.",
@@ -108,7 +102,6 @@ export const careerRoles = [
   "3D Rigger",
   "Lighting and Rendering Artist",
   "Web Developer",
-  "HR",
   "Other",
 ] as const;
 

@@ -306,12 +306,18 @@ export function ParticleBackground() {
     const quad = new THREE.PlaneGeometry(2, 2);
 
     // Pointer state
-    let tgtX = -1.0, tgtY = -1.0;
-    let mX = -1.0, mY = -1.0;
-    let smX = 0.5, smY = 0.5;
-    let lastX = -1.0, lastY = -1.0;
+    let tgtX = -1.0,
+      tgtY = -1.0;
+    let mX = -1.0,
+      mY = -1.0;
+    let smX = 0.5,
+      smY = 0.5;
+    let lastX = -1.0,
+      lastY = -1.0;
     let vel = 0.0;
-    let clickPending = false, cX = 0.5, cY = 0.5;
+    let clickPending = false,
+      cX = 0.5,
+      cY = 0.5;
     let isTabActive = true;
 
     // Droplet spawning state
@@ -350,8 +356,10 @@ export function ParticleBackground() {
       simA = makeTarget(SIM_RES, SIM_RES, true);
       simB = makeTarget(SIM_RES, SIM_RES, true);
       normalTarget = makeTarget(SIM_RES, SIM_RES, false);
-      renderer.setRenderTarget(simA); renderer.clear();
-      renderer.setRenderTarget(simB); renderer.clear();
+      renderer.setRenderTarget(simA);
+      renderer.clear();
+      renderer.setRenderTarget(simB);
+      renderer.clear();
       renderer.setRenderTarget(null);
 
       // ---- Simulation scene ----
@@ -365,7 +373,7 @@ export function ParticleBackground() {
           uRes: { value: new THREE.Vector2(SIM_RES, SIM_RES) },
           uMouse: { value: new THREE.Vector2(-1, -1) },
           uMouseRadius: { value: isMobile ? 0.09 : 0.055 },
-          uMouseStrength: { value: 0.20 },
+          uMouseStrength: { value: 0.2 },
           uClickActive: { value: 0 },
           uClickPos: { value: new THREE.Vector2(0.5, 0.5) },
           uClickStrength: { value: 0.85 },
@@ -373,7 +381,8 @@ export function ParticleBackground() {
           uDroplets: { value: dropletPos },
           uDropletActive: { value: 0 },
         },
-        depthTest: false, depthWrite: false,
+        depthTest: false,
+        depthWrite: false,
       });
       simScene.add(new THREE.Mesh(quad, simMat));
 
@@ -388,7 +397,8 @@ export function ParticleBackground() {
           uRes: { value: new THREE.Vector2(SIM_RES, SIM_RES) },
           uNormalStrength: { value: isMobile ? 2.8 : 4.5 },
         },
-        depthTest: false, depthWrite: false,
+        depthTest: false,
+        depthWrite: false,
       });
       normalScene.add(new THREE.Mesh(quad, normalMat));
 
@@ -406,7 +416,8 @@ export function ParticleBackground() {
           uSmoothMouse: { value: new THREE.Vector2(0.5, 0.5) },
           uMouseVelocity: { value: 0 },
         },
-        depthTest: false, depthWrite: false,
+        depthTest: false,
+        depthWrite: false,
       });
       waterScene.add(new THREE.Mesh(quad, waterMat));
 
@@ -417,13 +428,18 @@ export function ParticleBackground() {
         tgtX = e.clientX / window.innerWidth;
         tgtY = 1.0 - e.clientY / window.innerHeight;
       };
-      const onLeave = () => { tgtX = -1; tgtY = -1; };
+      const onLeave = () => {
+        tgtX = -1;
+        tgtY = -1;
+      };
       const onDown = (e: PointerEvent) => {
         cX = e.clientX / window.innerWidth;
         cY = 1.0 - e.clientY / window.innerHeight;
         clickPending = true;
       };
-      const onVisibility = () => { isTabActive = !document.hidden; };
+      const onVisibility = () => {
+        isTabActive = !document.hidden;
+      };
       const onResize = () => {
         if (!renderer || !waterMat) return;
         renderer.setSize(window.innerWidth, window.innerHeight, true);
@@ -453,16 +469,21 @@ export function ParticleBackground() {
         // ---- Smooth mouse interpolation ----
         if (tgtX >= 0) {
           if (mX < 0) {
-            mX = tgtX; mY = tgtY;
-            smX = tgtX; smY = tgtY;
-            lastX = tgtX; lastY = tgtY;
+            mX = tgtX;
+            mY = tgtY;
+            smX = tgtX;
+            smY = tgtY;
+            lastX = tgtX;
+            lastY = tgtY;
           } else {
-            lastX = mX; lastY = mY;
-            mX = THREE.MathUtils.lerp(mX, tgtX, 0.20);
-            mY = THREE.MathUtils.lerp(mY, tgtY, 0.20);
+            lastX = mX;
+            lastY = mY;
+            mX = THREE.MathUtils.lerp(mX, tgtX, 0.2);
+            mY = THREE.MathUtils.lerp(mY, tgtY, 0.2);
             smX = THREE.MathUtils.lerp(smX, tgtX, 0.055);
             smY = THREE.MathUtils.lerp(smY, tgtY, 0.055);
-            const dx = mX - lastX, dy = mY - lastY;
+            const dx = mX - lastX,
+              dy = mY - lastY;
             const d = Math.sqrt(dx * dx + dy * dy);
             vel = vel * 0.82 + d * 0.18;
           }
@@ -482,7 +503,8 @@ export function ParticleBackground() {
             dropletActive = false;
           }
         } else {
-          mX = -1; mY = -1;
+          mX = -1;
+          mY = -1;
           vel *= 0.88;
           smX = THREE.MathUtils.lerp(smX, 0.5, 0.022);
           smY = THREE.MathUtils.lerp(smY, 0.5, 0.022);
@@ -519,7 +541,9 @@ export function ParticleBackground() {
         renderer.render(waterScene!, waterCam!);
 
         // Ping-pong swap
-        const tmp = curSim; curSim = prevSim; prevSim = tmp;
+        const tmp = curSim;
+        curSim = prevSim;
+        prevSim = tmp;
       };
 
       animate();

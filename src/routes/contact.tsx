@@ -10,7 +10,10 @@ export const Route = createFileRoute("/contact")({
   head: () => ({
     meta: [
       { title: `Contact — ${site.name}` },
-      { name: "description", content: `Contact ${site.name} for project inquiries and collaborations.` },
+      {
+        name: "description",
+        content: `Contact ${site.name} for project inquiries and collaborations.`,
+      },
       { property: "og:title", content: `Contact — ${site.name}` },
       { property: "og:url", content: "/contact" },
     ],
@@ -92,7 +95,11 @@ function ContactPage() {
           <F label="Email" name="email" type="email" required />
           <F label="Contact Number" name="phone" />
           <F label="Company / Production" name="company" />
-          <F label="Project Type" name="project_type" placeholder="3D Animation, Product Rendering…" />
+          <F
+            label="Project Type"
+            name="project_type"
+            placeholder="3D Animation, Product Rendering…"
+          />
           <F label="Expected Timeline" name="timeline" placeholder="e.g. 4-6 weeks" />
           <label className="grid gap-2 text-sm md:col-span-2">
             <span className="font-medium">Project Requirements</span>
@@ -104,7 +111,9 @@ function ContactPage() {
             />
           </label>
           <label className="grid gap-2 text-sm md:col-span-2">
-            <span className="font-medium">Message <span className="text-primary">*</span></span>
+            <span className="font-medium">
+              Message <span className="text-primary">*</span>
+            </span>
             <textarea
               name="message"
               rows={4}

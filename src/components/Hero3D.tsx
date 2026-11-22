@@ -20,35 +20,16 @@ function SceneLights() {
       />
 
       {/* Subtle fill directional light from front-left */}
-      <directionalLight
-        position={[-10, 5, 5]}
-        intensity={1.0}
-        color="#e0f2fe"
-      />
+      <directionalLight position={[-10, 5, 5]} intensity={1.0} color="#e0f2fe" />
 
       {/* Cyan accent rim light at the back-left */}
-      <pointLight
-        position={[-6, 4, -4]}
-        intensity={3.0}
-        distance={20}
-        color="#38cfff"
-      />
+      <pointLight position={[-6, 4, -4]} intensity={3.0} distance={20} color="#38cfff" />
 
       {/* Purple accent rim light at the back-right */}
-      <pointLight
-        position={[6, -4, -4]}
-        intensity={2.5}
-        distance={20}
-        color="#d946ef"
-      />
+      <pointLight position={[6, -4, -4]} intensity={2.5} distance={20} color="#d946ef" />
 
       {/* Warm soft light at the front-bottom */}
-      <pointLight
-        position={[0, -5, 5]}
-        intensity={1.2}
-        distance={15}
-        color="#ffedd5"
-      />
+      <pointLight position={[0, -5, 5]} intensity={1.2} distance={15} color="#ffedd5" />
     </>
   );
 }
@@ -65,7 +46,7 @@ interface MouseState {
 function StarModel({ mouseRef }: { mouseRef: React.RefObject<MouseState> }) {
   const { scene } = useGLTF("/cute_little_star.glb");
   const modelRef = useRef<THREE.Group>(null);
-  
+
   // Ref to accumulate continuous idle rotation over time
   const idleRotY = useRef(0);
 
@@ -73,28 +54,34 @@ function StarModel({ mouseRef }: { mouseRef: React.RefObject<MouseState> }) {
   const { center, scale, clonedScene } = useMemo(() => {
     // Clone scene to prevent mutating the original cache asset
     const cloned = scene.clone();
-    
+
     const box = new THREE.Box3().setFromObject(cloned);
     const centerVec = new THREE.Vector3();
     box.getCenter(centerVec);
     const sizeVec = new THREE.Vector3();
     box.getSize(sizeVec);
-    
+
     // Scale model proportionally to a target size of 2.2 units
     const maxDim = Math.max(sizeVec.x, sizeVec.y, sizeVec.z);
     const targetSize = 2.2;
     const scaleVal = targetSize / (maxDim || 1);
-    
+
     // Enable shadows for all mesh children
     cloned.traverse((child) => {
       if ((child as THREE.Mesh).isMesh) {
         child.castShadow = true;
         child.receiveShadow = true;
-        
+
         // Ensure standard materials look smooth and correct
         const mesh = child as THREE.Mesh;
         if (mesh.material) {
-          mesh.material.side = THREE.DoubleSide;
+          if (Array.isArray(mesh.material)) {
+            mesh.material.forEach((mat) => {
+              mat.side = THREE.DoubleSide;
+            });
+          } else {
+            mesh.material.side = THREE.DoubleSide;
+          }
         }
       }
     });
@@ -105,7 +92,7 @@ function StarModel({ mouseRef }: { mouseRef: React.RefObject<MouseState> }) {
   // Read viewport size for responsive layout positioning
   const { width: viewportWidth, height: viewportHeight } = useThree((state) => state.viewport);
   const { size } = useThree();
-  
+
   // Responsive design breakpoints
   const isMobile = size.width < 768;
   const isTablet = size.width >= 768 && size.width < 1024;
@@ -122,13 +109,13 @@ function StarModel({ mouseRef }: { mouseRef: React.RefObject<MouseState> }) {
     mouse.y += (mouse.targetY - mouse.y) * 0.04;
 
     // 2. Idle animations: slow floating and subtle rocking
-    const idleY = Math.sin(t * 0.8) * 0.12;      // slow float vertical
-    const idleX = Math.cos(t * 0.6) * 0.05;      // slow float horizontal
-    const idleZ = Math.sin(t * 0.5) * 0.08;      // slow float depth
-    
-    const idleRotX = Math.sin(t * 0.4) * 0.06;   // rocking X
-    const idleRotZ = Math.cos(t * 0.3) * 0.04;   // rocking Z
-    
+    const idleY = Math.sin(t * 0.8) * 0.12; // slow float vertical
+    const idleX = Math.cos(t * 0.6) * 0.05; // slow float horizontal
+    const idleZ = Math.sin(t * 0.5) * 0.08; // slow float depth
+
+    const idleRotX = Math.sin(t * 0.4) * 0.06; // rocking X
+    const idleRotZ = Math.cos(t * 0.3) * 0.04; // rocking Z
+
     // Smooth cumulative rotation (360 degrees spin)
     idleRotY.current += delta * 0.12;
 
@@ -186,7 +173,7 @@ function StarModel({ mouseRef }: { mouseRef: React.RefObject<MouseState> }) {
 
 export default function Hero3D() {
   const containerRef = useRef<HTMLDivElement>(null);
-  
+
   // Track cursor position ref
   const mouseRef = useRef<MouseState>({
     x: 0,

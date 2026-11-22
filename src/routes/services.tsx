@@ -23,9 +23,7 @@ export const Route = createFileRoute("/services")({
 function ServicesPage() {
   return (
     <section className="mx-auto max-w-7xl px-6 py-20">
-      <p className="text-sm uppercase tracking-widest text-muted-foreground">
-        Production Services
-      </p>
+      <p className="text-sm uppercase tracking-widest text-muted-foreground">Production Services</p>
       <h1 className="mt-3 font-display text-4xl font-semibold md:text-6xl">
         <span className="gradient-text">Services</span> by {site.name}
       </h1>
@@ -35,8 +33,8 @@ function ServicesPage() {
 
       <div className="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {services.map((s) => {
-          const Icon = (Icons as unknown as Record<string, Icons.LucideIcon>)[s.icon] ??
-            Icons.Sparkles;
+          const Icon =
+            (Icons as unknown as Record<string, Icons.LucideIcon>)[s.icon] ?? Icons.Sparkles;
           return (
             <article
               key={s.title}
@@ -47,9 +45,7 @@ function ServicesPage() {
                 <Icon className="h-6 w-6" />
               </div>
               <h2 className="mt-6 font-display text-xl font-semibold">{s.title}</h2>
-              <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                {s.description}
-              </p>
+              <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{s.description}</p>
             </article>
           );
         })}

@@ -12,11 +12,7 @@ import {
   ArrowRight,
   ExternalLink,
 } from "lucide-react";
-import {
-  getCrewByCategory,
-  type CrewCategory,
-  type CrewMemberFull,
-} from "@/data/crewData";
+import { getCrewByCategory, type CrewCategory, type CrewMemberFull } from "@/data/crewData";
 
 export const Route = createFileRoute("/crew/")({
   head: () => ({
@@ -98,13 +94,7 @@ function getRoleIcon(role: string): React.FC<{ className?: string }> {
   return Globe;
 }
 
-function ProfileCard({
-  member,
-  cat,
-}: {
-  member: CrewMemberFull;
-  cat: CatConfig;
-}) {
+function ProfileCard({ member, cat }: { member: CrewMemberFull; cat: CatConfig }) {
   const RoleIcon = getRoleIcon(member.role);
 
   return (
@@ -129,7 +119,9 @@ function ProfileCard({
           />
         )}
         <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
-        <div className={`absolute top-3 right-3 rounded-full p-2 backdrop-blur-sm border ${cat.badgeClass}`}>
+        <div
+          className={`absolute top-3 right-3 rounded-full p-2 backdrop-blur-sm border ${cat.badgeClass}`}
+        >
           <RoleIcon className="w-3.5 h-3.5" />
         </div>
       </div>
@@ -138,9 +130,7 @@ function ProfileCard({
         <h3 className="font-display font-semibold text-sm leading-tight text-foreground">
           {member.name}
         </h3>
-        <p className={`mt-1 text-xs font-medium ${cat.iconClass}`}>
-          {member.role}
-        </p>
+        <p className={`mt-1 text-xs font-medium ${cat.iconClass}`}>{member.role}</p>
         {member.intro && (
           <p className="mt-2 text-xs leading-relaxed text-muted-foreground line-clamp-2 flex-1">
             {member.intro}
@@ -234,8 +224,8 @@ function CrewPage() {
         Crew of <span className="gradient-text">{site.name}</span>
       </h1>
       <p className="mt-4 max-w-2xl text-muted-foreground">
-        Meet the dedicated team of visionaries, technologists, and creative
-        professionals behind Fun Media Entertainment.
+        Meet the dedicated team of visionaries, technologists, and creative professionals behind Fun
+        Media Entertainment.
       </p>
 
       <nav aria-label="Crew categories" className="mt-8 flex flex-wrap gap-2">

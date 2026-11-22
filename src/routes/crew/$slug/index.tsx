@@ -16,7 +16,7 @@ import {
   Play,
 } from "lucide-react";
 import { getCrewMember, getArtistWorks, type CrewCategory, type ArtistWork } from "@/data/crewData";
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect, useMemo } from "react";
 import type React from "react";
 
 export const Route = createFileRoute("/crew/$slug/")({
@@ -30,9 +30,7 @@ export const Route = createFileRoute("/crew/$slug/")({
     return {
       meta: [
         {
-          title: m
-            ? `${m.name} — ${site.name}`
-            : `Profile — ${site.name}`,
+          title: m ? `${m.name} — ${site.name}` : `Profile — ${site.name}`,
         },
         {
           name: "description",
@@ -50,9 +48,7 @@ export const Route = createFileRoute("/crew/$slug/")({
         <h1 className="mt-4 text-xl font-semibold font-display text-white">
           Crew member not found
         </h1>
-        <p className="mt-2 text-sm text-muted-foreground">
-          This profile doesn't exist.
-        </p>
+        <p className="mt-2 text-sm text-muted-foreground">This profile doesn't exist.</p>
         <a
           href="/crew"
           className="mt-6 inline-flex items-center gap-2 rounded-lg btn-neon px-4 py-2 text-sm font-semibold"
@@ -203,9 +199,7 @@ function Lightbox({
                   onClick={() => (idx < imageIndex ? onPrevImage() : onNextImage())}
                   aria-label={`Image ${idx + 1}`}
                   className={`w-1.5 h-1.5 rounded-full transition-all duration-200 cursor-pointer ${
-                    idx === imageIndex
-                      ? "bg-white scale-125"
-                      : "bg-white/40 hover:bg-white/70"
+                    idx === imageIndex ? "bg-white scale-125" : "bg-white/40 hover:bg-white/70"
                   }`}
                 />
               ))}
@@ -219,16 +213,12 @@ function Lightbox({
               <span className="inline-block rounded-full px-2.5 py-0.5 text-xs font-medium bg-primary/10 border border-primary/20 text-primary">
                 {work.category}
               </span>
-              <h2 className="mt-2 font-display text-xl font-semibold text-white">
-                {work.title}
-              </h2>
+              <h2 className="mt-2 font-display text-xl font-semibold text-white">{work.title}</h2>
               <p className="text-sm text-primary mt-0.5">{work.contribution}</p>
             </div>
           </div>
 
-          <p className="mt-3 text-sm text-muted-foreground leading-relaxed">
-            {work.description}
-          </p>
+          <p className="mt-3 text-sm text-muted-foreground leading-relaxed">{work.description}</p>
 
           {work.software.length > 0 && (
             <div className="mt-4 flex flex-wrap gap-2">
@@ -289,7 +279,10 @@ function ProfilePage() {
   const accent = CATEGORY_ACCENTS[member.category];
 
   // Fetch works if artist
-  const works = member.isArtist ? getArtistWorks(member.slug) : [];
+  const works = useMemo(
+    () => (member.isArtist ? getArtistWorks(member.slug) : []),
+    [member.isArtist, member.slug],
+  );
 
   // Lightbox State
   const [selectedWorkIdx, setSelectedWorkIdx] = useState<number | null>(null);
@@ -330,8 +323,7 @@ function ProfilePage() {
     setSelectedImageIdx((prev) => (prev - 1 + (imgs.length || 1)) % (imgs.length || 1));
   }, [selectedWorkIdx, works]);
 
-  const currentWork =
-    selectedWorkIdx !== null ? works[selectedWorkIdx] : null;
+  const currentWork = selectedWorkIdx !== null ? works[selectedWorkIdx] : null;
 
   return (
     <div className="mx-auto max-w-5xl px-6 py-16 animate-fade-up">
@@ -374,9 +366,7 @@ function ProfilePage() {
             {member.name}
           </h1>
           <p className="mt-1 text-primary text-base">{member.role}</p>
-          <p className="mt-3 text-sm text-muted-foreground leading-relaxed">
-            {member.intro}
-          </p>
+          <p className="mt-3 text-sm text-muted-foreground leading-relaxed">{member.intro}</p>
 
           {/* Social links (Only LinkedIn as per instruction) */}
           {member.socialLinks.linkedin && (
@@ -395,7 +385,7 @@ function ProfilePage() {
             </div>
           )}
 
-          {/* Email section - ONLY for CEO, Co-founder, HR, and Web Developer */}
+          {/* Email section - ONLY for CEO, Co-founder, and Web Developer */}
           {member.contactInfo?.email && (
             <div className="mt-5 flex items-center gap-2">
               <Mail className="w-3.5 h-3.5 text-muted-foreground/50 flex-shrink-0" />
@@ -414,9 +404,7 @@ function ProfilePage() {
       <div className="mt-12">
         <SectionHeading>About</SectionHeading>
         <div className="glass rounded-2xl border border-white/8 p-6 mt-4">
-          <p className="text-sm text-muted-foreground leading-relaxed">
-            {member.bio}
-          </p>
+          <p className="text-sm text-muted-foreground leading-relaxed">{member.bio}</p>
         </div>
       </div>
 
@@ -431,21 +419,19 @@ function ProfilePage() {
                 className="glass rounded-2xl border border-white/8 p-6 flex gap-5 group hover:border-white/15 transition-colors duration-200"
               >
                 <div className="flex-shrink-0 flex flex-col items-center gap-1 mt-1">
-                  <div className={`w-2.5 h-2.5 rounded-full ${accent.dot} ring-2 ring-offset-2 ring-offset-transparent ring-current opacity-80`} />
+                  <div
+                    className={`w-2.5 h-2.5 rounded-full ${accent.dot} ring-2 ring-offset-2 ring-offset-transparent ring-current opacity-80`}
+                  />
                   <div className="w-px flex-1 bg-gradient-to-b from-primary/40 to-transparent min-h-[2rem]" />
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1">
-                    <h3 className="font-display font-semibold text-sm text-white">
-                      {exp.title}
-                    </h3>
+                    <h3 className="font-display font-semibold text-sm text-white">{exp.title}</h3>
                     <span className="text-xs text-muted-foreground/60 flex-shrink-0">
                       {exp.period}
                     </span>
                   </div>
-                  <p className="text-xs font-medium mt-0.5 text-primary">
-                    {exp.company}
-                  </p>
+                  <p className="text-xs font-medium mt-0.5 text-primary">{exp.company}</p>
                   <p className="mt-2 text-xs text-muted-foreground leading-relaxed">
                     {exp.description}
                   </p>
@@ -506,9 +492,7 @@ function ProfilePage() {
                 <div className="flex items-start gap-3">
                   <Star className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
                   <div>
-                    <h3 className="font-display font-semibold text-sm text-white">
-                      {ach.title}
-                    </h3>
+                    <h3 className="font-display font-semibold text-sm text-white">{ach.title}</h3>
                     <p className="mt-1 text-xs text-muted-foreground leading-relaxed">
                       {ach.description}
                     </p>

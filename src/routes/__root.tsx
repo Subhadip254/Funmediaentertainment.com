@@ -27,10 +27,7 @@ function NotFoundComponent() {
         <p className="mt-2 text-sm text-muted-foreground">
           The page you're looking for doesn't exist.
         </p>
-        <a
-          href="/"
-          className="mt-6 inline-flex rounded-md btn-neon px-4 py-2 text-sm font-medium"
-        >
+        <a href="/" className="mt-6 inline-flex rounded-md btn-neon px-4 py-2 text-sm font-medium">
           Go home
         </a>
       </div>
@@ -135,12 +132,7 @@ function RootComponent() {
 
   useEffect(() => {
     const { data: sub } = supabase.auth.onAuthStateChange((event) => {
-      if (
-        event !== "SIGNED_IN" &&
-        event !== "SIGNED_OUT" &&
-        event !== "USER_UPDATED"
-      )
-        return;
+      if (event !== "SIGNED_IN" && event !== "SIGNED_OUT" && event !== "USER_UPDATED") return;
       router.invalidate();
       if (event !== "SIGNED_OUT") queryClient.invalidateQueries();
     });

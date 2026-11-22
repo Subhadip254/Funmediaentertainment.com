@@ -62,14 +62,18 @@ function CareersPage() {
         <span className="font-medium text-foreground">Production:</span> {site.name}
       </p>
       <p className="mt-2 text-muted-foreground">
-        There are currently no open positions. You may still submit your portfolio for future opportunities.
+        There are currently no open positions. You may still submit your portfolio for future
+        opportunities.
       </p>
 
       {done ? (
         <div className="glass mt-12 rounded-2xl p-10 text-center">
-          <h2 className="font-display text-2xl font-semibold">Thank you for applying to {site.name}.</h2>
+          <h2 className="font-display text-2xl font-semibold">
+            Thank you for applying to {site.name}.
+          </h2>
           <p className="mt-3 text-muted-foreground">
-            Our team will review your application and contact you if your profile matches our current requirements.
+            Our team will review your application and contact you if your profile matches our
+            current requirements.
           </p>
           <button
             className="mt-6 rounded-full border border-white/15 px-5 py-2 text-sm hover:bg-white/5"
@@ -90,15 +94,27 @@ function CareersPage() {
               defaultValue=""
               className="rounded-md border border-white/15 bg-background/50 px-3 py-2.5 text-sm outline-none focus:border-primary"
             >
-              <option value="" disabled>Select a role…</option>
+              <option value="" disabled>
+                Select a role…
+              </option>
               {careerRoles.map((r) => (
-                <option key={r} value={r}>{r}</option>
+                <option key={r} value={r}>
+                  {r}
+                </option>
               ))}
             </select>
           </label>
-          <Field label="Portfolio Link" name="portfolio_url" type="url" placeholder="https://…" required />
+          <Field
+            label="Portfolio Link"
+            name="portfolio_url"
+            type="url"
+            placeholder="https://…"
+            required
+          />
           <label className="grid gap-2 text-sm">
-            <span className="font-medium">Message <span className="text-muted-foreground">(optional)</span></span>
+            <span className="font-medium">
+              Message <span className="text-muted-foreground">(optional)</span>
+            </span>
             <textarea
               name="message"
               rows={4}

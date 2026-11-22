@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap");
 @import "tailwindcss" source(none);
 @source "../src";
 @import "tw-animate-css";
@@ -88,15 +88,12 @@
   --neon-cyan: oklch(0.85 0.16 200);
   --neon-purple: oklch(0.7 0.24 300);
 
-  --gradient-hero: radial-gradient(ellipse at 20% 20%,
-      oklch(0.72 0.18 240 / 0.25),
-      transparent 60%),
+  --gradient-hero:
+    radial-gradient(ellipse at 20% 20%, oklch(0.72 0.18 240 / 0.25), transparent 60%),
     radial-gradient(ellipse at 80% 60%, oklch(0.7 0.24 300 / 0.22), transparent 65%),
     radial-gradient(ellipse at 50% 100%, oklch(0.85 0.16 200 / 0.15), transparent 70%);
   --gradient-neon: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));
-  --gradient-glow: linear-gradient(135deg,
-      oklch(0.72 0.18 240 / 0.6),
-      oklch(0.7 0.24 300 / 0.6));
+  --gradient-glow: linear-gradient(135deg, oklch(0.72 0.18 240 / 0.6), oklch(0.7 0.24 300 / 0.6));
 
   --shadow-glow: 0 0 40px oklch(0.72 0.18 240 / 0.35);
   --shadow-panel: 0 20px 60px -20px oklch(0 0 0 / 0.6);
@@ -147,11 +144,13 @@
 }
 
 @utility gradient-text {
-  background: linear-gradient(90deg,
-      oklch(0.72 0.18 240),
-      oklch(0.85 0.16 200),
-      oklch(0.7 0.24 300),
-      oklch(0.72 0.18 240));
+  background: linear-gradient(
+    90deg,
+    oklch(0.72 0.18 240),
+    oklch(0.85 0.16 200),
+    oklch(0.7 0.24 300),
+    oklch(0.72 0.18 240)
+  );
   background-size: 300% 100%;
   -webkit-background-clip: text;
   background-clip: text;
@@ -161,7 +160,6 @@
 }
 
 @keyframes gradient-shift {
-
   0%,
   100% {
     background-position: 0% 50%;
@@ -180,11 +178,12 @@
   background: var(--gradient-neon);
   color: oklch(0.11 0.02 265);
   box-shadow: var(--shadow-glow);
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
 }
 
 @keyframes float-slow {
-
   0%,
   100% {
     transform: translateY(0px);
@@ -225,9 +224,7 @@
   animation: fade-up 0.7s ease-out both;
 }
 
-
 /* ── Hero Premium Typography & Buttons ── */
-
 
 /* Badge pill */
 .hero-badge {
@@ -238,9 +235,9 @@
 
 /* Main heading */
 .hero-heading {
-  font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
+  font-family: "Plus Jakarta Sans", "Inter", sans-serif;
   font-size: clamp(2.2rem, 4.2vw, 4rem);
-  color: #F8FAFF;
+  color: #f8faff;
   letter-spacing: -0.03em;
   line-height: 1.05;
   text-shadow: 0 2px 40px rgba(0, 0, 0, 0.65);
@@ -249,14 +246,14 @@
 /* Plain lines of the heading */
 .hero-heading-line {
   display: block;
-  color: #F8FAFF;
+  color: #f8faff;
   white-space: nowrap;
 }
 
 /* Gradient word "Worlds" — cyan → blue → violet */
 .hero-heading-gradient {
   display: block;
-  background: linear-gradient(90deg, #35D8FF 0%, #5B8CFF 50%, #A855F7 100%);
+  background: linear-gradient(90deg, #35d8ff 0%, #5b8cff 50%, #a855f7 100%);
   background-size: 200% 100%;
   -webkit-background-clip: text;
   background-clip: text;
@@ -265,7 +262,6 @@
 }
 
 @keyframes hero-word-shimmer {
-
   0%,
   100% {
     background-position: 0% 50%;
@@ -278,15 +274,22 @@
 
 /* Primary CTA — cyan-to-violet gradient with glow */
 .hero-btn-primary {
-  background: linear-gradient(135deg, #35D8FF 0%, #5B8CFF 50%, #A855F7 100%);
+  background: linear-gradient(135deg, #35d8ff 0%, #5b8cff 50%, #a855f7 100%);
   background-size: 200% 100%;
-  box-shadow: 0 0 22px rgba(53, 216, 255, 0.40), 0 4px 18px rgba(0, 0, 0, 0.30);
-  transition: background-position 0.4s ease, box-shadow 0.3s ease, transform 0.25s ease;
+  box-shadow:
+    0 0 22px rgba(53, 216, 255, 0.4),
+    0 4px 18px rgba(0, 0, 0, 0.3);
+  transition:
+    background-position 0.4s ease,
+    box-shadow 0.3s ease,
+    transform 0.25s ease;
 }
 
 .hero-btn-primary:hover {
   background-position: 100% 0;
-  box-shadow: 0 0 36px rgba(53, 216, 255, 0.60), 0 6px 28px rgba(0, 0, 0, 0.38);
+  box-shadow:
+    0 0 36px rgba(53, 216, 255, 0.6),
+    0 6px 28px rgba(0, 0, 0, 0.38);
   transform: translateY(-2px);
 }
 
@@ -296,19 +299,22 @@
 
 /* Secondary CTA — glass border with soft cyan hover glow */
 .hero-btn-secondary {
-  background: rgba(10, 18, 40, 0.40);
+  background: rgba(10, 18, 40, 0.4);
   border: 1px solid rgba(56, 207, 255, 0.28);
-  color: #DCE7F7;
+  color: #dce7f7;
   backdrop-filter: blur(12px);
-  transition: background 0.3s ease, border-color 0.3s ease,
-    box-shadow 0.3s ease, transform 0.25s ease;
+  transition:
+    background 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease,
+    transform 0.25s ease;
 }
 
 .hero-btn-secondary:hover {
   background: rgba(56, 207, 255, 0.08);
   border-color: rgba(56, 207, 255, 0.55);
   box-shadow: 0 0 18px rgba(56, 207, 255, 0.22);
-  color: #F8FAFF;
+  color: #f8faff;
   transform: translateY(-2px);
 }
 
@@ -316,9 +322,7 @@
   transform: translateY(0);
 }
 
-
 @media (prefers-reduced-motion: reduce) {
-
   *,
   *::before,
   *::after {
@@ -330,13 +334,15 @@
 /* ── Hero text-area readability overlay ── */
 /* Subtle left-side dark gradient so text is always legible — no visible box */
 .hero-text-fade::before {
-  content: '';
+  content: "";
   position: absolute;
   inset: 0;
   z-index: 0;
-  background: radial-gradient(ellipse 55% 80% at 20% 55%,
-      rgba(1, 6, 18, 0.52) 0%,
-      rgba(1, 6, 18, 0.18) 55%,
-      transparent 75%);
+  background: radial-gradient(
+    ellipse 55% 80% at 20% 55%,
+    rgba(1, 6, 18, 0.52) 0%,
+    rgba(1, 6, 18, 0.18) 55%,
+    transparent 75%
+  );
   pointer-events: none;
 }

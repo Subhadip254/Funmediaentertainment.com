@@ -24,10 +24,10 @@ export const Route = createFileRoute("/portfolio")({
 
 type PortfolioCategory = {
   id: string;
-  label: string;               // display title on the card
-  categoryKey: string;         // matches ArtistWork.category
-  color: string;               // accent hex color
-  description: string;         // short card description
+  label: string; // display title on the card
+  categoryKey: string; // matches ArtistWork.category
+  color: string; // accent hex color
+  description: string; // short card description
 };
 
 const CATEGORIES: PortfolioCategory[] = [
@@ -36,7 +36,8 @@ const CATEGORIES: PortfolioCategory[] = [
     label: "3D Modeling",
     categoryKey: "3D Modeling",
     color: "#6a80ff",
-    description: "Characters, environments, props, vehicles and product models built for production.",
+    description:
+      "Characters, environments, props, vehicles and product models built for production.",
   },
   {
     id: "texturing",
@@ -186,12 +187,10 @@ function Lightbox({
               className="inline-block rounded-full px-3 py-0.5 text-[10px] font-semibold uppercase tracking-wider border"
               style={{ color: accent, borderColor: `${accent}40`, background: `${accent}12` }}
             >
-              {work.category} › {work.subcategory}
+              {work.category}
+              {work.subcategory ? ` › ${work.subcategory}` : ""}
             </span>
-            <h2
-              className="mt-2 font-display text-2xl font-bold"
-              style={{ color: accent }}
-            >
+            <h2 className="mt-2 font-display text-2xl font-bold" style={{ color: accent }}>
               {work.title}
             </h2>
           </div>
@@ -199,9 +198,7 @@ function Lightbox({
             <p className="text-xs font-semibold text-white/40 uppercase tracking-widest mb-1.5">
               Description
             </p>
-            <p className="text-sm text-muted-foreground leading-relaxed">
-              {work.description}
-            </p>
+            <p className="text-sm text-muted-foreground leading-relaxed">{work.description}</p>
           </div>
         </div>
       </div>
@@ -211,13 +208,7 @@ function Lightbox({
 
 // ─── Work Thumbnail Card (inside gallery) ─────────────────────────────────────
 
-function WorkCard({
-  work,
-  onClick,
-}: {
-  work: ArtistWork;
-  onClick: () => void;
-}) {
+function WorkCard({ work, onClick }: { work: ArtistWork; onClick: () => void }) {
   const cat = CATEGORIES.find((c) => c.categoryKey === work.category);
   const accent = cat?.color ?? "#35d8ff";
 
@@ -239,12 +230,14 @@ function WorkCard({
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
         {/* subcategory badge */}
-        <span
-          className="absolute top-2.5 left-2.5 rounded-full px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider backdrop-blur-sm"
-          style={{ background: `${accent}22`, color: accent, border: `1px solid ${accent}40` }}
-        >
-          {work.subcategory}
-        </span>
+        {work.subcategory && (
+          <span
+            className="absolute top-2.5 left-2.5 rounded-full px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider backdrop-blur-sm"
+            style={{ background: `${accent}22`, color: accent, border: `1px solid ${accent}40` }}
+          >
+            {work.subcategory}
+          </span>
+        )}
       </div>
 
       {/* Footer */}
@@ -459,9 +452,7 @@ function PortfolioPage() {
           {/* Category cards grid */}
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {CATEGORIES.map((cat) => {
-              const count = artistWorks.filter(
-                (w) => w.category === cat.categoryKey
-              ).length;
+              const count = artistWorks.filter((w) => w.category === cat.categoryKey).length;
               return (
                 <CategoryCard
                   key={cat.id}

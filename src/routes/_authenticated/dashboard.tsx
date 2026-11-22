@@ -1,5 +1,5 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { toast } from "sonner";
 import { LogOut, ShieldAlert, Star, ListTodo, Megaphone, User } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
@@ -7,10 +7,7 @@ import { site } from "@/config/site";
 
 export const Route = createFileRoute("/_authenticated/dashboard")({
   head: () => ({
-    meta: [
-      { title: `Dashboard — ${site.name}` },
-      { name: "robots", content: "noindex" },
-    ],
+    meta: [{ title: `Dashboard — ${site.name}` }, { name: "robots", content: "noindex" }],
   }),
   component: Dashboard,
 });
@@ -25,7 +22,13 @@ type Profile = {
   official_role: string | null;
 };
 
-type Task = { id: string; title: string; description: string | null; status: string; due_date: string | null };
+type Task = {
+  id: string;
+  title: string;
+  description: string | null;
+  status: string;
+  due_date: string | null;
+};
 type Record = {
   attendance_days: number;
   punctuality_rating: number;
@@ -46,24 +49,32 @@ function Dashboard() {
   const [announcements, setAnnouncements] = useState<Announcement[]>([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    load();
-  }, [user.id]);
-
-  async function load() {
+  const load = useCallback(async () => {
     setLoading(true);
     const [{ data: p }, { data: t }, { data: r }, { data: a }] = await Promise.all([
       supabase.from("profiles").select("*").eq("id", user.id).maybeSingle(),
-      supabase.from("tasks").select("*").eq("assigned_to", user.id).order("created_at", { ascending: false }),
+      supabase
+        .from("tasks")
+        .select("*")
+        .eq("assigned_to", user.id)
+        .order("created_at", { ascending: false }),
       supabase.from("employee_records").select("*").eq("user_id", user.id).maybeSingle(),
-      supabase.from("announcements").select("*").order("created_at", { ascending: false }).limit(10),
+      supabase
+        .from("announcements")
+        .select("*")
+        .order("created_at", { ascending: false })
+        .limit(10),
     ]);
     setProfile(p as Profile | null);
     setTasks((t ?? []) as Task[]);
     setRecord(r as Record | null);
     setAnnouncements((a ?? []) as Announcement[]);
     setLoading(false);
-  }
+  }, [user.id]);
+
+  useEffect(() => {
+    load();
+  }, [load]);
 
   async function signOut() {
     await supabase.auth.signOut();
@@ -115,9 +126,7 @@ function Dashboard() {
     <section className="mx-auto max-w-6xl px-6 py-16">
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div>
-          <p className="text-sm uppercase tracking-widest text-muted-foreground">
-            {site.name}
-          </p>
+          <p className="text-sm uppercase tracking-widest text-muted-foreground">{site.name}</p>
           <h1 className="mt-1 font-display text-3xl font-semibold">
             Welcome, {profile.full_name || profile.email}
           </h1>
@@ -207,7 +216,15 @@ function Dashboard() {
   );
 }
 
-function Card({ icon, title, children }: { icon: React.ReactNode; title: string; children: React.ReactNode }) {
+function Card({
+  icon,
+  title,
+  children,
+}: {
+  icon: React.ReactNode;
+  title: string;
+  children: React.ReactNode;
+}) {
   return (
     <div className="glass rounded-2xl p-6">
       <div className="flex items-center gap-2 text-sm uppercase tracking-widest text-muted-foreground">

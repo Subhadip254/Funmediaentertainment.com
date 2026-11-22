@@ -87,7 +87,8 @@ function RatingsPage() {
           Ratings & <span className="gradient-text">Reviews</span>
         </h1>
         <p className="mx-auto mt-4 max-w-xl text-muted-foreground">
-          We value your feedback. Whether you're an employee or a client, let us know how we're doing.
+          We value your feedback. Whether you're an employee or a client, let us know how we're
+          doing.
         </p>
       </div>
 
@@ -107,10 +108,11 @@ function RatingsPage() {
           </div>
         ) : (
           <form onSubmit={onSubmit} className="glass grid gap-6 rounded-2xl p-8 animate-fade-up">
-
             <div className="grid gap-6 md:grid-cols-2">
               <label className="grid gap-2 text-sm">
-                <span className="font-medium">Name <span className="text-primary">*</span></span>
+                <span className="font-medium">
+                  Name <span className="text-primary">*</span>
+                </span>
                 <input
                   name="name"
                   type="text"
@@ -121,7 +123,9 @@ function RatingsPage() {
               </label>
 
               <label className="grid gap-2 text-sm">
-                <span className="font-medium">I am a... <span className="text-primary">*</span></span>
+                <span className="font-medium">
+                  I am a... <span className="text-primary">*</span>
+                </span>
                 <select
                   name="role"
                   required
@@ -129,7 +133,9 @@ function RatingsPage() {
                   onChange={(e) => setSelectedRole(e.target.value)}
                   className="rounded-md border border-white/15 bg-background/50 px-3 py-2.5 text-sm outline-none focus:border-primary appearance-none"
                 >
-                  <option value="" disabled>Select your role</option>
+                  <option value="" disabled>
+                    Select your role
+                  </option>
                   <option value="Client">Client</option>
                   <option value="Artist">Artist</option>
                   <option value="Other">Other</option>
@@ -138,7 +144,9 @@ function RatingsPage() {
 
               {selectedRole === "Other" && (
                 <label className="grid gap-2 text-sm md:col-span-2 animate-fade-up">
-                  <span className="font-medium">Please specify your role <span className="text-primary">*</span></span>
+                  <span className="font-medium">
+                    Please specify your role <span className="text-primary">*</span>
+                  </span>
                   <input
                     name="customRole"
                     type="text"
@@ -151,7 +159,9 @@ function RatingsPage() {
             </div>
 
             <div className="grid gap-2 text-sm text-center py-4">
-              <span className="font-medium text-lg">Your Rating <span className="text-primary">*</span></span>
+              <span className="font-medium text-lg">
+                Your Rating <span className="text-primary">*</span>
+              </span>
               <div className="flex justify-center gap-2 mt-2">
                 {[1, 2, 3, 4, 5].map((star) => (
                   <button
@@ -163,10 +173,11 @@ function RatingsPage() {
                     className="transition-transform hover:scale-110 focus:outline-none"
                   >
                     <Star
-                      className={`h-8 w-8 ${star <= (hoverRating || rating)
-                        ? "fill-primary text-primary"
-                        : "text-muted-foreground/30"
-                        } transition-colors duration-200`}
+                      className={`h-8 w-8 ${
+                        star <= (hoverRating || rating)
+                          ? "fill-primary text-primary"
+                          : "text-muted-foreground/30"
+                      } transition-colors duration-200`}
                     />
                   </button>
                 ))}
@@ -174,7 +185,9 @@ function RatingsPage() {
             </div>
 
             <label className="grid gap-2 text-sm">
-              <span className="font-medium">Comments <span className="text-primary">*</span></span>
+              <span className="font-medium">
+                Comments <span className="text-primary">*</span>
+              </span>
               <textarea
                 name="comments"
                 rows={4}

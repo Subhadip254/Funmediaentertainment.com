@@ -24,23 +24,16 @@ export function SiteHeader() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-
-
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-50 transition-all ${scrolled ? "glass" : "bg-transparent"
-        }`}
+      className={`fixed inset-x-0 top-0 z-50 transition-all ${
+        scrolled ? "glass" : "bg-transparent"
+      }`}
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
         <Link to="/" className="flex items-center gap-2">
-          <img
-            src="/logo.png"
-            alt={site.name}
-            className="h-9 w-auto object-contain"
-          />
-          <span className="font-display text-lg font-semibold tracking-tight">
-            {site.name}
-          </span>
+          <img src="/logo.png" alt={site.name} className="h-9 w-auto object-contain" />
+          <span className="font-display text-lg font-semibold tracking-tight">{site.name}</span>
         </Link>
 
         <nav className="hidden items-center gap-8 md:flex" aria-label="Primary">
@@ -49,10 +42,10 @@ export function SiteHeader() {
               key={n.to}
               to={n.to}
               className="relative text-sm font-medium transition-colors hover:text-foreground py-1"
-              style={{ color: '#DCE7F7' }}
+              style={{ color: "#DCE7F7" }}
               activeProps={{
                 className: "font-semibold",
-                style: { color: '#38CFFF' },
+                style: { color: "#38CFFF" },
               }}
               activeOptions={{ exact: n.to === "/" }}
             >
@@ -60,9 +53,12 @@ export function SiteHeader() {
                 <>
                   {n.label}
                   {isActive && (
-                    <span 
+                    <span
                       className="absolute inset-x-0 -bottom-1 h-0.5 rounded-full"
-                      style={{ background: 'linear-gradient(90deg, #38CFFF, #5B8CFF)', boxShadow: '0 0 8px #38CFFF' }}
+                      style={{
+                        background: "linear-gradient(90deg, #38CFFF, #5B8CFF)",
+                        boxShadow: "0 0 8px #38CFFF",
+                      }}
                     />
                   )}
                 </>
@@ -88,7 +84,10 @@ export function SiteHeader() {
                 key={n.to}
                 to={n.to}
                 className="rounded-md px-3 py-2 text-sm text-muted-foreground hover:bg-white/5 hover:text-foreground transition-all duration-200"
-                activeProps={{ className: "bg-primary/10 text-primary border-l-2 border-primary rounded-l-none font-semibold pl-4" }}
+                activeProps={{
+                  className:
+                    "bg-primary/10 text-primary border-l-2 border-primary rounded-l-none font-semibold pl-4",
+                }}
                 activeOptions={{ exact: n.to === "/" }}
                 onClick={() => setOpen(false)}
               >

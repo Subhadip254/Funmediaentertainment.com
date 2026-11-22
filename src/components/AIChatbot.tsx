@@ -13,7 +13,7 @@ export function AIChatbot() {
     {
       sender: "bot",
       text: "Hello! I am the Fun Media AI Assistant. How can I help you explore our creative animation studio today?",
-      time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+      time: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
     },
   ]);
   const [input, setInput] = useState("");
@@ -36,7 +36,7 @@ export function AIChatbot() {
     const userMsg: Message = {
       sender: "user",
       text: userMsgText,
-      time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+      time: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
     };
 
     setMessages((prev) => [...prev, userMsg]);
@@ -49,29 +49,57 @@ export function AIChatbot() {
       const text = userMsgText.toLowerCase();
 
       if (text.includes("ceo") || text.includes("founder") || text.includes("subhadip")) {
-        botResponseText = "Subhadip Bera is the CEO & Founder of Fun Media Entertainment. Under his leadership, we create imaginative worlds and animations. You can view his full biography in the Crew section!";
+        botResponseText =
+          "Subhadip Bera is the CEO & Founder of Fun Media Entertainment. Under his leadership, we create imaginative worlds and animations. You can view his full biography in the Crew section!";
       } else if (text.includes("crew") || text.includes("team") || text.includes("members")) {
-        botResponseText = "Our core team consists of Subhadip Bera (CEO & Founder), Sagar Das (Co-Founder & Technical Director), Lipika Gayen (HR Executive), and Sujit Sasmal (Web Developer). We also have a brilliant roster of 3D Modelers, Riggers, Animators, and Texture Artists!";
-      } else if (text.includes("service") || text.includes("offer") || text.includes("what do you do")) {
-        botResponseText = "We specialize in professional 3D Modeling, Texturing, 3D & 2D Animation, Rigging, and Product Lighting & Rendering. You can check out all details on our Services page.";
-      } else if (text.includes("contact") || text.includes("email") || text.includes("phone") || text.includes("reach")) {
-        botResponseText = "You can reach us directly at contact@funmediaentertainment.com, or submit a message on our Contact page. For specific crew members, check their profile page for their LinkedIn link!";
-      } else if (text.includes("hiring") || text.includes("career") || text.includes("job") || text.includes("join")) {
-        botResponseText = "We are always on the lookout for creative talent! While we don't have immediate openings, you can submit your details and portfolio link directly via our Careers page.";
+        botResponseText =
+          "Our core team consists of Subhadip Bera (CEO & Founder), Sagar Das (Co-Founder & Technical Director), and Sujit Sasmal (Web Developer). We also have a brilliant roster of 3D Modelers, Riggers, Animators, and Texture Artists!";
+      } else if (
+        text.includes("service") ||
+        text.includes("offer") ||
+        text.includes("what do you do")
+      ) {
+        botResponseText =
+          "We specialize in professional 3D Modeling, Texturing, 3D & 2D Animation, Rigging, and Product Lighting & Rendering. You can check out all details on our Services page.";
+      } else if (
+        text.includes("contact") ||
+        text.includes("email") ||
+        text.includes("phone") ||
+        text.includes("reach")
+      ) {
+        botResponseText =
+          "You can reach us directly at contact@funmediaentertainment.com, or submit a message on our Contact page. For specific crew members, check their profile page for their LinkedIn link!";
+      } else if (
+        text.includes("hiring") ||
+        text.includes("career") ||
+        text.includes("job") ||
+        text.includes("join")
+      ) {
+        botResponseText =
+          "We are always on the lookout for creative talent! While we don't have immediate openings, you can submit your details and portfolio link directly via our Careers page.";
       } else if (text.includes("investor") || text.includes("partner") || text.includes("aarav")) {
-        botResponseText = "Aarav Mehta is our Venture Partner and Investor, helping us scale our pipelines and creative technologies.";
-      } else if (text.includes("portfolio") || text.includes("work") || text.includes("showcase") || text.includes("project")) {
-        botResponseText = "You can explore our showcase on the Portfolio page, or view specific artist works directly on their profile pages (e.g. Neha Sharma, Rohan Verma, and other artists in our Crew section).";
+        botResponseText =
+          "Aarav Mehta is our Venture Partner and Investor, helping us scale our pipelines and creative technologies.";
+      } else if (
+        text.includes("portfolio") ||
+        text.includes("work") ||
+        text.includes("showcase") ||
+        text.includes("project")
+      ) {
+        botResponseText =
+          "You can explore our showcase on the Portfolio page, or view specific artist works directly on their profile pages (e.g. Neha Sharma, Rohan Verma, and other artists in our Crew section).";
       } else if (text.includes("hello") || text.includes("hi") || text.includes("hey")) {
-        botResponseText = "Hello! Hope you're having a wonderful day. Ask me anything about Fun Media Entertainment's services, team, or portfolios!";
+        botResponseText =
+          "Hello! Hope you're having a wonderful day. Ask me anything about Fun Media Entertainment's services, team, or portfolios!";
       } else {
-        botResponseText = "That's an interesting question! I am currently in demo mode, but feel free to explore our pages (Services, Portfolio, Crew, Careers) or contact us directly at contact@funmediaentertainment.com for more info.";
+        botResponseText =
+          "That's an interesting question! I am currently in demo mode, but feel free to explore our pages (Services, Portfolio, Crew, Careers) or contact us directly at contact@funmediaentertainment.com for more info.";
       }
 
       const botMsg: Message = {
         sender: "bot",
         text: botResponseText,
-        time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+        time: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
       };
 
       setMessages((prev) => [...prev, botMsg]);
@@ -124,9 +152,7 @@ export function AIChatbot() {
                 >
                   {msg.text}
                 </div>
-                <span className="mt-1 text-[9px] text-muted-foreground/60 px-1">
-                  {msg.time}
-                </span>
+                <span className="mt-1 text-[9px] text-muted-foreground/60 px-1">{msg.time}</span>
               </div>
             ))}
             {isTyping && (
