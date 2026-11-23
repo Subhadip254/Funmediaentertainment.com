@@ -72,7 +72,7 @@ export const crewMembers: CrewMemberFull[] = [
     name: "Subhadip Bera",
     role: "CEO & Founder",
     category: "leadership",
-    photo: "/images/crew/ceo.jpg",
+    photo: "/images/crew/avatar.png",
     intro: "Leading the creative vision at Fun Media Entertainment.",
     bio: "Subhadip Bera is the founder and CEO of Fun Media Entertainment, a creative production studio specialising in high-quality 3D animation, character design, and visual storytelling. With a passion for bringing imaginative worlds to life, Subhadip established the studio with a clear vision: to deliver world-class animation and digital content that resonates with audiences globally. Under his leadership, Fun Media Entertainment has grown into a dynamic team of talented creatives and technologists united by a shared love for the craft.",
     experience: [

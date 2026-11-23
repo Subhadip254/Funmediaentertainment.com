@@ -33,7 +33,7 @@ export const crew: CrewMember[] = [
     name: "Subhadip Bera",
     role: "CEO and Founder",
     intro: "Leading the creative vision at Fun Media Entertainment.",
-    photo: "/images/crew/ceo.jpg",
+    photo: "/images/crew/avatar.png",
   },
   {
     name: "Sagar Das",
